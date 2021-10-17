@@ -1,4 +1,4 @@
-package com.sistersart.ecommercestore;
+package sistersart;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
