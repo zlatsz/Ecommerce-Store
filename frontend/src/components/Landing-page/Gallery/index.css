@@ -1,0 +1,43 @@
+.landing-gallery-title {
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+    padding: 30px 0;
+  }
+  
+  .landing-gallery {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 85px;
+  }
+
+  .landing-gallery article{
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .landing-gallery-link {
+    font-weight: bold;
+    border: 1px solid gray;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: black;
+    text-decoration: none;
+    width: 90px;
+    text-align: center;
+  }
+  
+  .landing-gallery article img {
+    width: 170px;
+    height: 150px;
+    padding-bottom: 20px;
+    object-fit: cover;
+  }
+  
+  /* .landing-gallery article p {
+    text-align: center;
+    padding-bottom: 15px;
+    font-style: italic;
+  } */

@@ -1,0 +1,109 @@
+.landing-header {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(oil.jpg) no-repeat;
+  background-size: cover;
+  text-align: center;
+  color: white;
+}
+
+.div-landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.div-landing-logo {
+  width: 10%;
+  text-align: left;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.div-landing-logo img{
+  width: 40%;
+  border-radius: 50%;
+}
+
+
+.div-landing-header ul {
+  display: flex;
+  padding-right: 40px;
+}
+
+.div-landing-header ul li {
+  padding-right: 5px;
+  list-style: none;
+}
+
+.div-landing-header ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.div-landing-header ul i.fa {
+  font-size: 20px;
+  padding: 2px 5px 0 5px;
+}
+
+.fr-landing-header-logo-center{
+  width: 10%;
+  padding-top: 15px;
+  border-radius: 55%;
+}
+
+.fr-landing-header-title {
+  padding-top: 25px;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.fr-landing-header-content {
+  margin: auto;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.fr-landing-header-button-header {
+  background: none;
+  border: none;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 15px;
+  margin-top:20px;
+}
+
+.fr-landing-header-button-header:hover {
+  background:purple;
+  cursor: pointer;
+}
+
+.landing-options {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 35px;
+}
+
+.landing-options-option {
+  text-align: center;
+  border-top: 1px solid white;
+  width: 25%;
+  padding-bottom: 50px;
+}
+
+.landing-options-option h4 {
+  padding-left: 15px;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.landing-options-option-a {
+  font-weight: lighter;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-left: 15px;
+  color: white;
+  text-decoration: none;
+}
+
