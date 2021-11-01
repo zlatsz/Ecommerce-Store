@@ -8,10 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sistersart.model.binding.SearchBindingModel;
 import sistersart.model.entity.IndexProduct;
@@ -27,7 +24,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@CrossOrigin(origins = "http://localhost:8080")
+@RestController
+@RequestMapping("/api")
 public class HomeController extends BaseController {
 
     private final CategoryService categoryService;
@@ -40,7 +39,6 @@ public class HomeController extends BaseController {
         this.productService = productService;
         this.modelMapper = modelMapper;
     }
-
 
     @GetMapping("/")
     @PreAuthorize("isAnonymous()")
