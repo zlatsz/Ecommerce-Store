@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class HomeController extends BaseController {
@@ -43,23 +43,26 @@ public class HomeController extends BaseController {
     @GetMapping("/")
     @PreAuthorize("isAnonymous()")
     @PageTitle("Index")
-    public ModelAndView index(ModelAndView modelAndView) {
-        List<CategoryAllViewModel> categories = this.categoryService
+//    public ModelAndView index(ModelAndView modelAndView) {
+    public List<CategoryAllViewModel> getCategories(){
+        return this.categoryService
                 .findAllCategories()
                 .stream()
                 .map(category -> this.modelMapper.map(category, CategoryAllViewModel.class))
                 .collect(Collectors.toList());
+    }
+
 //        List<ProductAllViewModel> products = this.productService
 //                .findAllProducts()
 //                .stream()
 //                .map(p -> this.modelMapper.map(p, ProductAllViewModel.class))
 //                .limit(4)
-//                .collect(Collectors.toList());
-        List<IndexProduct> products = this.productService.indexView();
-        modelAndView.addObject("categories", categories);
-        modelAndView.addObject("products", products);
-        return view("index", modelAndView);
-    }
+//               .collect(Collectors.toList());
+//        List<IndexProduct> products = this.productService.indexView();
+//        modelAndView.addObject("categories", categories);
+//        modelAndView.addObject("products", products);
+//        return view("index", modelAndView);
+//    }
 
     @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
@@ -101,6 +104,13 @@ public class HomeController extends BaseController {
     @PageTitle("Contacts")
     public String contacts(){
         return "contacts";
+    }
+
+    @GetMapping("/messages")
+    @PreAuthorize("isAuthenticated()")
+    @PageTitle("Messages")
+    public String messages(){
+        return "messages";
     }
 
 }
