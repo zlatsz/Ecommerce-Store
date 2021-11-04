@@ -1,0 +1,102 @@
+.register-page {
+    margin: 0 auto;
+    padding: 0;
+    /* max-width: 1270px; */
+    height: 600px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/src/images/oil.jpg) no-repeat;
+    object-fit: cover;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.register-page-wrapper {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-page-wrapper h2 {
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.register-page-content {
+    background-color: white;
+    width: 350px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 0 5px -1px #424242;
+    position: relative;
+}
+
+.register-page-content input {
+    border: none;
+    border-bottom: 1px solid #b3b3b3;
+    padding: 20px;
+    margin-top: 16px;
+    padding-left: 60px;
+    font-size: 1em;
+}
+
+.register-page-submit {
+    margin: 24px auto;
+    width: 150px;
+    height: 40px;
+    text-transform: uppercase;
+    border-radius: 40px;
+    letter-spacing: 1px;
+    line-height: 0px;
+    background-color: #AB5FAC;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+}
+
+.register-page-submit:hover {
+    background: purple;
+    cursor: pointer;
+}
+.register-page-content i {
+    color: gray;
+    position: absolute;
+}
+
+.register-page-content .fa-envelope {
+    top: 37px;
+    left: 20px;
+}
+
+.register-page-content .fa-lock {
+    top: 112px;
+    left: 20px;
+}
+
+.register-page-content .fa-unlock {
+    top: 185px;
+    left: 20px;
+}
+
+.register-page-wrapper h3 {
+    letter-spacing: 1px;
+    color: white;
+    margin-top: 10px;
+}
+
+.register-logo {
+    width: 10%;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+}
+
+.register-logo img {
+    width: 50%;
+    border-radius: 50%;
+}

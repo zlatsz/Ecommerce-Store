@@ -1,0 +1,98 @@
+.login-page {
+    margin: 0 auto;
+    padding: 0;
+    /* max-width: 1270px; */
+    height: 600px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/src/images/oil.jpg) no-repeat;
+    object-fit: cover;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.login-page-wrapper {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page-wrapper h2 {
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.login-page-content {
+    background-color: white;
+    width: 350px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 0 5px -1px #424242;
+    position: relative;
+}
+
+.login-page-content input {
+    border: none;
+    border-bottom: 1px solid #b3b3b3;
+    padding: 20px;
+    margin-top: 16px;
+    padding-left: 60px;
+    font-size: 1em;
+}
+
+.login-page-submit {
+    margin: 24px auto;
+    width: 150px;
+    height: 40px;
+    text-transform: uppercase;
+    border-radius: 40px;
+    letter-spacing: 1px;
+    line-height: 0px;
+    background-color: #AB5FAC;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+}
+
+.login-page-submit:hover {
+    background: purple;
+    cursor: pointer;
+}
+
+.login-page-content i {
+    color: gray;
+    position: absolute;
+}
+
+.login-page-content .fa-envelope {
+    top: 37px;
+    left: 20px;
+}
+
+.login-page-content .fa-lock {
+    top: 112px;
+    left: 20px;
+}
+
+.login-page-wrapper h3 {
+    letter-spacing: 1px;
+    color: white;
+    margin-top: 10px;
+}
+
+.login-logo {
+    width: 10%;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+}
+
+.login-logo img {
+    width: 50%;
+    border-radius: 50%;
+}

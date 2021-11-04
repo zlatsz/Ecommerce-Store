@@ -4,8 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 // import isAuth from './hoc/isAuth';
 import LandingPage from './components/Landing-page';
 // import Contacts from "./components/Contacts";
-// import Login from './components/Login';
-// import Register from './components/Register';
+import Login from './components/Login';
+import Register from './components/Register';
 // import Home from './components/Home';
 // import AddProducts from "./components/AddProducts";
 // import Profiles from "./components/Profiles";
@@ -29,8 +29,8 @@ const App = () => {
       //   <AuthProvider>
           <Switch>
             <Route path="/" exact component={LandingPage} />
-            {/*<Route path="/login" component={Login} />*/}
-            {/*<Route path="/register" component={Register} />*/}
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
             {/*<Route path="/contacts" component={Contacts} />*/}
             {/*<Route path="/messages" exact component={isAuth(Messages)} />*/}
             {/*<CartProvider>*/}
