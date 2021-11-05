@@ -3,12 +3,18 @@ package sistersart.web.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import sistersart.error.UserWrongCredentialsException;
 import sistersart.model.binding.UserEditBindingModel;
+import sistersart.model.binding.UserLoginBindingModel;
 import sistersart.model.binding.UserRegisterBindingModel;
 import sistersart.model.service.OrderServiceModel;
 import sistersart.model.service.RoleServiceModel;
@@ -16,8 +22,11 @@ import sistersart.model.service.UserServiceModel;
 import sistersart.model.view.OrderViewModel;
 import sistersart.model.view.UserAllViewModel;
 import sistersart.model.view.UserProfileViewModel;
+import sistersart.security.JwtResponse;
+import sistersart.security.JwtUtils;
 import sistersart.service.OrderService;
 import sistersart.service.UserService;
+import sistersart.validation.MessageResponse;
 import sistersart.validation.UserEditValidator;
 import sistersart.validation.UserRegisterValidator;
 import sistersart.web.annotations.PageTitle;
@@ -28,8 +37,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Controller
-@RequestMapping("api/users")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+@RestController
+@RequestMapping("/api")
 public class UserController extends BaseController{
 
     private final UserService userService;
@@ -37,49 +47,75 @@ public class UserController extends BaseController{
     private final UserRegisterValidator userRegisterValidator;
     private final UserEditValidator userEditValidator;
     private final ModelMapper mapper;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
 
     @Autowired
-    public UserController(UserService userService, OrderService orderService, UserRegisterValidator userRegisterValidator, UserEditValidator userEditValidator, ModelMapper mapper) {
+    public UserController(UserService userService, OrderService orderService, UserRegisterValidator userRegisterValidator, UserEditValidator userEditValidator, ModelMapper mapper, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.userService = userService;
         this.orderService = orderService;
         this.userRegisterValidator = userRegisterValidator;
         this.userEditValidator = userEditValidator;
         this.mapper = mapper;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
     }
 
-    @GetMapping("/register")
-    @PreAuthorize("isAnonymous()")
-    @PageTitle("Register")
-    public ModelAndView register(ModelAndView modelAndView,
-                                 @ModelAttribute(name = "model") UserRegisterBindingModel model) {
-        modelAndView.addObject("model", model);
-        return view("users/register", modelAndView);
-    }
+//    @GetMapping("/register")
+//    @PreAuthorize("isAnonymous()")
+//    @PageTitle("Register")
+//    public ModelAndView register(ModelAndView modelAndView,
+//                                 @ModelAttribute(name = "model") UserRegisterBindingModel model) {
+//        modelAndView.addObject("model", model);
+//        return view("users/register", modelAndView);
+//    }
 
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView registerConfirm(ModelAndView modelAndView,
-                                  @ModelAttribute (name = "model") UserRegisterBindingModel model,
-                                  BindingResult bindingResult) {
+//    public ModelAndView registerConfirm(ModelAndView modelAndView,
+//                                  @ModelAttribute (name = "model") UserRegisterBindingModel model,
+//                                  BindingResult bindingResult) {
+
+    public ResponseEntity<String> registration(@Valid @RequestBody UserRegisterBindingModel model, BindingResult bindingResult){
         this.userRegisterValidator.validate(model, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.setPassword(null);
-            model.setConfirmPassword(null);
-            modelAndView.addObject("model", model);
-            return view("users/register", modelAndView);
+            throw new UserWrongCredentialsException();
         }
         UserServiceModel serviceModel = mapper.map(model, UserServiceModel.class);
         userService.registerUser(serviceModel);
 
-        return redirect("/users/login");
+        return ResponseEntity.ok("User registered successfully!");
     }
 
-    @GetMapping("/login")
-    @PreAuthorize("isAnonymous()")
-    @PageTitle("Login")
-    public ModelAndView login() {
-        return view("users/login");
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserLoginBindingModel model) {
+
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+
+        UserServiceModel serviceModel = (UserServiceModel) authentication.getPrincipal();
+        List<String> roles = serviceModel.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                serviceModel.getId(),
+                serviceModel.getUsername(),
+                serviceModel.getEmail(),
+                roles));
     }
+
+//    @GetMapping("/login")
+//    @PreAuthorize("isAnonymous()")
+//    @PageTitle("Login")
+//    public ModelAndView login() {
+//        return view("users/login");
+//    }
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")

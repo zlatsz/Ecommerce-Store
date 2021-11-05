@@ -17,10 +17,6 @@ public class AppBeanConfiguration {
         return new ModelMapper();
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public Validator validator() {

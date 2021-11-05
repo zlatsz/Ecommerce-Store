@@ -9,6 +9,7 @@ public class UserWrongCredentialsException extends RuntimeException {
 
     public UserWrongCredentialsException() {
     }
+
     public UserWrongCredentialsException(String message) {
         super(message);
         this.statusCode = HttpStatus.BAD_REQUEST.value();
