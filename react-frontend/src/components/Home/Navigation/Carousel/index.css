@@ -1,0 +1,21 @@
+.home-header-carousel{
+    max-width: 1270px;
+    margin: 20px auto;
+    
+    position: relative;
+}
+
+.home-header-carousel-img{
+    width: 80%;
+    height: 400px;
+    object-fit: cover;
+    margin-bottom: 20px;
+   
+}
+
+.home-header-carousel-btn-wrapper{
+    position: absolute;
+    top: 94%;
+    left: 50%;
+    transform: translate(-50%, -94%);
+}

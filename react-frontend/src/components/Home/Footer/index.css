@@ -1,0 +1,72 @@
+.home-footer {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  background: #AB5FAC;
+  padding: 20px 20px;
+  color: white;
+  font-weight: lighter;
+}
+
+.home-footer-bottom {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.home-footer-link .fab {
+  color: white;
+  padding-right: 5px;
+}
+
+.fa-facebook-f:before, .fa-link:before {
+  padding-right: 3px;
+}
+
+.home-footer-link .fas {
+  color: white;
+  padding-right: 10px;
+}
+
+.home-footer-upper {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  font-size: 13px;
+  
+}
+
+.home-footer-one ,.home-footer-two ,.home-footer-tree ,.home-footer-four {
+  width: 200px;
+  text-align: left;
+  margin-right: 50px;
+
+}
+
+.home-footer-upper h2{
+  margin-bottom: 5px;
+}
+
+.home-footer-upper .home-footer-two ul li {
+  list-style: none;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 2px;
+}
+
+.home-footer-upper .home-footer-one ul li{
+  list-style: none;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 2px;
+}
+
+.home-footer-upper .home-footer-two ul li a{
+  text-decoration: none;
+  color: white;
+}
+
+.home-footer-upper .home-footer-one ul  a{
+  text-decoration: none;
+  color: white;
+}
