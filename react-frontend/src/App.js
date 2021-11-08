@@ -1,12 +1,12 @@
 import { Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './contexts/authentication';
 // import { CartProvider } from './contexts/shoppingCart';
-// import isAuth from './hoc/isAuth';
+import isAuth from './hoc/isAuth';
 import LandingPage from './components/Landing-page';
 // import Contacts from "./components/Contacts";
 import Login from './components/Login';
 import Register from './components/Register';
-// import Home from './components/Home';
+import Home from './components/Home';
 // import AddProducts from "./components/AddProducts";
 // import Profiles from "./components/Profiles";
 // import AddPosts from "./components/AddPosts";
@@ -34,7 +34,7 @@ const App = () => {
             {/*<Route path="/contacts" component={Contacts} />*/}
             {/*<Route path="/messages" exact component={isAuth(Messages)} />*/}
             {/*<CartProvider>*/}
-            {/*  <Route path="/home" exact component={isAuth(Home)} />*/}
+              <Route path="/home" exact component={isAuth(Home)} />
             {/*  <Route path="/add-products" exact component={isAuth(AddProducts)} />*/}
             {/*  <Route path="/profiles" exact component={isAuth(Profiles)} />*/}
             {/*  <Route path="/profile" exact component={isAuth(Profile)} />*/}
