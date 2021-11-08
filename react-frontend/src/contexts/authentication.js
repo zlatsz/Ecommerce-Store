@@ -9,9 +9,11 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
       const user = JSON.parse(localStorage.getItem('user'));
-      if (user && user.accessToken) {
-        const isAdmin = adminService.adminCheck(user);
-        user['isAdmin'] = isAdmin;
+      if (!user) {
+          setCurrentUser(null);
+      } else if (user && user.accessToken){
+          const isAdmin = adminService.adminCheck(user);
+          user['isAdmin'] = isAdmin;
       }
       setCurrentUser(user);
 

@@ -25,6 +25,7 @@ class DataService {
 
     logout() {
         localStorage.removeItem("user");
+
     }
 
     register(username, email, password, confirmPassword) {

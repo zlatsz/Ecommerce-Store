@@ -45,7 +45,7 @@ const Navigation = () => {
         <>
         <header className="home-header">
             <Header />
-            <h2>Здравей, {currentUser?.email}</h2>
+            <h2>Здравей, {currentUser?.username}!</h2>
             <Carousel
                 image={slides[currentSlide]}
                 slideNext={slideNext}

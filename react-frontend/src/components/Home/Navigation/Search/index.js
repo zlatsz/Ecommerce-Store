@@ -1,35 +1,35 @@
-import * as productsService from '../../../../services/productsService';
+// import * as productsService from '../../../../services/productsService';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const Search = () => {
     const history = useHistory();
 
-    const [products, setProducts] = useState({});
-    let allProducts = [];
+    // const [products, setProducts] = useState({});
+    // let allProducts = [];
 
-    useEffect(() => {
-        productsService.getAll()
-        .then(res => setProducts(res))
-        .catch((error) => alert(error.message));
-    }, []);
-    
-    let result = Array.from(products);
-    allProducts = result.map((product) => { return { ...product } });
+    // useEffect(() => {
+    //     productsService.getAll()
+    //     .then(res => setProducts(res))
+    //     .catch((error) => alert(error.message));
+    // }, []);
+    //
+    // let result = Array.from(products);
+    // allProducts = result.map((product) => { return { ...product } });
 
     const search = (e) => {
         e.preventDefault();
-
-        const productName = e.target.search.value;
-        allProducts = allProducts.filter((product) =>
-            product.name.toLowerCase().includes(productName));
-       
-        if (allProducts.length>0) {
-            let id = allProducts[0].id;
-            history.push(`/product/details/${id}`);
-        } else {
-            history.push("/home");
-        }
+        //
+        // const productName = e.target.search.value;
+        // allProducts = allProducts.filter((product) =>
+        //     product.name.toLowerCase().includes(productName));
+        //
+        // if (allProducts.length>0) {
+        //     let id = allProducts[0].id;
+        //     history.push(`/product/details/${id}`);
+        // } else {
+        //     history.push("/home");
+        // }
     }
 
     return (

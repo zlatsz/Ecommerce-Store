@@ -6,7 +6,15 @@ import AuthService from '../../utils/request-service';
 import Footer from "../Landing-page/Footer";
 
 const Login = () => {
+
+    const { currentUser } = useContext(AuthContext);
     const history = useHistory();
+
+    // useEffect(() => {
+    //     if (currentUser) {
+    //         history.push('/home');
+    //     }
+    // },[currentUser, history] );
 
     const signIn = (e) => {
         e.preventDefault();
@@ -16,16 +24,15 @@ const Login = () => {
         const username = email.split('@')[0];
 
         AuthService.login(username, password, email)
+            .then(() =>{
+
+                    history.push('/home');
+            })
             .catch((error) => alert(error.message));
     }
 
-    const { currentUser } = useContext(AuthContext);
 
-    useEffect(() => {
-        if (currentUser) {
-            history.push('/home');
-        }
-    },[currentUser, history] );
+
 
     return (
         <>

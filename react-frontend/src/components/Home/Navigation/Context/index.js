@@ -3,11 +3,12 @@ import { useContext, useState, useEffect } from 'react';
 // import * as ordersService from '../../../../services/ordersService';
 import { AuthContext } from '../../../../contexts/authentication';
 // import { CartContext } from '../../../../contexts/shoppingCart';
+import AuthService from '../../../../utils/request-service';
 
 
-const Context = () => {
+
+    const Context = () => {
     let history = useHistory();
-    const { currentUser } = useContext(AuthContext);
     // const { cart } = useContext(CartContext);
     // // const [order, setOrder] = useState({});
 
@@ -18,6 +19,9 @@ const Context = () => {
     // }, [cart.name]);
 
     function logout() {
+        AuthService.logout();
+        currentUser = null;
+        history.push('/');
         // if (order) {
         //     if (!order.products) {
         //         ordersService.deleteCart(currentUser.token, cart.name)
@@ -38,6 +42,9 @@ const Context = () => {
         //     });
         // }
     }
+
+        let { currentUser } = useContext(AuthContext);
+
 
     return (
         <>
