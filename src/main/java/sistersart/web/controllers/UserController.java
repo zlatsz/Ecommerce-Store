@@ -26,9 +26,9 @@ import sistersart.security.JwtResponse;
 import sistersart.security.JwtUtils;
 import sistersart.service.OrderService;
 import sistersart.service.UserService;
-import sistersart.validation.MessageResponse;
 import sistersart.validation.UserEditValidator;
 import sistersart.validation.UserRegisterValidator;
+import sistersart.validation.UserServiceModelValidator;
 import sistersart.web.annotations.PageTitle;
 
 import javax.validation.Valid;
@@ -46,16 +46,18 @@ public class UserController extends BaseController{
     private final OrderService orderService;
     private final UserRegisterValidator userRegisterValidator;
     private final UserEditValidator userEditValidator;
+    private final UserServiceModelValidator userServiceModelValidator;
     private final ModelMapper mapper;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
     @Autowired
-    public UserController(UserService userService, OrderService orderService, UserRegisterValidator userRegisterValidator, UserEditValidator userEditValidator, ModelMapper mapper, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    public UserController(UserService userService, OrderService orderService, UserRegisterValidator userRegisterValidator, UserEditValidator userEditValidator, UserServiceModelValidator userServiceModelValidator, ModelMapper mapper, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.userService = userService;
         this.orderService = orderService;
         this.userRegisterValidator = userRegisterValidator;
         this.userEditValidator = userEditValidator;
+        this.userServiceModelValidator = userServiceModelValidator;
         this.mapper = mapper;
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
@@ -89,25 +91,28 @@ public class UserController extends BaseController{
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserLoginBindingModel model) {
+        UserServiceModel serviceModelVal = mapper.map(model, UserServiceModel.class);
+        if(!this.userServiceModelValidator.isValid(serviceModelVal)) {
+            throw new UserWrongCredentialsException();
 
+        }
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateJwtToken(authentication);
+           Object principal = authentication.getPrincipal();
+            UserServiceModel serviceModel = mapper.map(principal, UserServiceModel.class);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+            List<String> roles = serviceModel.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
 
-
-        UserServiceModel serviceModel = (UserServiceModel) authentication.getPrincipal();
-        List<String> roles = serviceModel.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                serviceModel.getId(),
-                serviceModel.getUsername(),
-                serviceModel.getEmail(),
-                roles));
+            return ResponseEntity.ok(new JwtResponse(jwt,
+                    serviceModel.getId(),
+                    serviceModel.getUsername(),
+                    serviceModel.getEmail(),
+                    roles));
     }
 
 //    @GetMapping("/login")

@@ -3,7 +3,7 @@
     padding: 0;
     /* max-width: 1270px; */
     height: 600px;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/src/images/oil.jpg) no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(oil.jpg) no-repeat;
     object-fit: cover;
     align-items: center;
     display: flex;

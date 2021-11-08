@@ -1,5 +1,6 @@
 package sistersart.security;
 
+import org.modelmapper.ModelMapper;
 import java.util.Date;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -19,12 +20,20 @@ public class JwtUtils {
     @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    private final ModelMapper mapper;
+
+    public JwtUtils(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
+
     public String generateJwtToken(Authentication authentication) {
 
-        UserServiceModel userPrincipal = (UserServiceModel) authentication.getPrincipal();
+//        UserServiceModel userPrincipal = (UserServiceModel) authentication.getPrincipal();
+        Object principal = authentication.getPrincipal();
+        UserServiceModel serviceModel = mapper.map(principal, UserServiceModel.class);
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject(serviceModel.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

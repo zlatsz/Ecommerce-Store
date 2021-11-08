@@ -2,7 +2,7 @@ import "./index.css";
 import { useContext,useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../contexts/authentication';
-import firebase from '../../utils/firebase';
+import AuthService from '../../utils/request-service';
 import Footer from "../Landing-page/Footer";
 
 const Login = () => {
@@ -13,9 +13,9 @@ const Login = () => {
 
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const username = email.split('@')[0];
 
-        firebase.auth()
-            .signInWithEmailAndPassword(email, password)
+        AuthService.login(username, password, email)
             .catch((error) => alert(error.message));
     }
 

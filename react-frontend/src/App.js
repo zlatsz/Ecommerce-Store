@@ -1,5 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
-// import { AuthProvider } from './contexts/authentication';
+import { AuthProvider } from './contexts/authentication';
 // import { CartProvider } from './contexts/shoppingCart';
 // import isAuth from './hoc/isAuth';
 import LandingPage from './components/Landing-page';
@@ -26,7 +26,7 @@ import './App.css';
 const App = () => {
   return (
       // <MyErrorBoundary>
-      //   <AuthProvider>
+        <AuthProvider>
           <Switch>
             <Route path="/" exact component={LandingPage} />
             <Route path="/login" component={Login} />
@@ -49,7 +49,7 @@ const App = () => {
             {/*  <Route path="/deliveries" exact component={isAuth(Deliveries)} />*/}
             {/*</CartProvider>*/}
           </Switch>
-      //   </AuthProvider>
+       </AuthProvider>
       // </MyErrorBoundary>
   );
 }
